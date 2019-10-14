@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Rajdhani");
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
 
 /* General settings
 ================================================================== */
@@ -32,6 +33,7 @@ ul {
 $generic-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 4px 11px;
 $generic-border: 1px solid #F1F1F1;
 $generic-bg: #FF9000;
+$desktopSwitch: '200px'; // Change this to update what width the side changes layout
 
 /* Mixins
 ================================================================== */
@@ -66,20 +68,20 @@ $generic-bg: #FF9000;
 
 @mixin btn($width) {
     width: $width;
-    background-color: $generic-bg;
-    color: #FFFFFF;
+    background-color: red;
+    color: #FFFFFF !important;
     border: 1px solid transparent;
     margin-right: 5px;
     margin-top: 10px;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 13px !important;
     line-height: 17px;
     padding: 6px 12px 7px 12px;
     position: relative;
     display: inline-block;
     white-space: nowrap;
-    border-radius: 3px;
-    text-decoration: none;
+    border-radius: 3px !important;
+    text-decoration: none !important;
     text-align: center;
     cursor: pointer;
 }
@@ -134,7 +136,7 @@ header {
     top: 0;
     width: 100%;
 
-    @include mq('900px') {
+    @include mq($desktopSwitch) {
         padding: 0 10px;
     }
 }
@@ -149,11 +151,12 @@ nav {
     max-width: 922px;
     margin: auto;
     height: 44px;
+
+    p, li {
+        color: white;
+    }
 }
 
-p, li {
-    color: white;
-}
 
 div {
     &.logo {
@@ -209,27 +212,29 @@ div {
     border-right: $generic-border;
     background-color: #FAFAFA;
 
-    // @include mq('900px') {
-    //     display: none;
-    // }
+    @include mq($desktopSwitch) {
+        display: none;
+    }
 
     li {
         padding-left: 10px;
         padding-right: 15px;
 
-        &:hoever .sidebar__project-delete {
-            display: block;
-        }
+        // NOTE A 1/2: To enable a hover show/hide use this
+        // &:hover .sidebar__project-delete {
+        //     display: block;
+        // }
     }
 
     &__project {
-        padding: 5px 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
         cursor: pointer;
-        color: #333333;
 
         &-delete {
             margin-left: auto;
-            display: none;
+            // NOTE A 2/2: To enable a hover show/hide use this
+            // display: none;
 
             svg {
                 color: #CACACA;
@@ -270,22 +275,18 @@ div {
                 color: #AF38EB;
             }
         }
+    }
 
-        &__projects {
-            padding-left: 3px;
-        }
+    &__projects {
+        padding-left: 3px;
+    }
 
-        &__project {
-            @include va('left');
-        }
+    &__project {
+        @include va('left');
+    }
 
-        &__dot {
-            margin-right: 10px;
-            font-size: 30px;
-        }
-
-        
-        
+    &__dot {
+        margin-right: 10px;
     }
 
     &__middle {
@@ -299,10 +300,6 @@ div {
         span {
             color: #00000A;
             margin-right: 10px;
-            
-            svg.hidden-projects {
-                transform: rotate(-90deg);
-            }
         }
 
         h2 {
@@ -340,5 +337,112 @@ div {
             }
         }
 
+    }
+}
+
+/* Show Confirm Delete
+================================================================== */
+.project-delete-modal {
+    position: relative;
+
+    &__inner {
+        @include box-overlay();
+        z-index: 99;
+        width: 200px;
+        padding: 20px;
+        top: 10px;
+        right: 0;
+        background-color: white;
+        cursor: default;
+
+        p {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            line-height: normal;
+            font-weight: normal;
+            font-size: 15px;
+            color: #333333;
+        }
+
+        button {
+            @include btn('50px');
+        }
+
+        span {
+            @include cancel();
+            font-weight: normal;
+        }
+
+    }
+}
+
+/* Main Content
+================================================================== */
+.content {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+    max-width: 922px;
+    margin: auto;
+}
+
+/* Tasks
+================================================================== */
+.tasks {
+    font-family: 'Montserrat', sans-serif;
+    width: 656px;
+    background-color: white;
+    margin-left: 266px;
+    border-right: $generic-border;
+    min-height: calc(100vh);
+    vertical-align: top;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 80px;
+    padding-bottom: 84px;
+
+    @include mq($desktopSwitch) {
+        margin-left: 0;
+        width: auto;
+    }
+
+    h2 {
+        font-size: 20px;
+        font-weight: normal;
+        margin: 0 30px 20px 0;
+    }
+
+    .add-task {
+        margin-top: 20px;
+    }
+
+    &__list li {
+        display: flex;
+        line-height: 18px;
+        color: #333333;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 14px;
+        list-style-type: none;
+        border-bottom: 1px solid #F0F0F0;
+
+        .checkbox-holder {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 16px;
+
+            .checkbox {
+                cursor: pointer;
+                border-color: gray;
+                color: #343434;
+                height: 16px;
+                width: 16px;
+                display: block;
+                border: 1px solid gray;
+                border-radius: 16px;
+            }
+        }
     }
 }

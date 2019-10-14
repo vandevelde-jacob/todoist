@@ -8,7 +8,7 @@ import {
     SelectedProjectContext,
     SelectedProjectProvider,
     useSelectedProjectValue
-} from './select-project-context';
+} from './selected-project-context';
 
 export {
     ProjectsContext,
