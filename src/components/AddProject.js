@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { firebase } from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -11,6 +11,14 @@ export const AddProject = ({shouldShow = false }) => {
 
     const projectId = generatedPushId();
     const { setProjects } = useProjectsValue();
+    const projectInput = useRef(null);
+
+
+    useEffect(() => {
+        if (projectInput.current) {
+            projectInput.current.focus();
+        }
+    });
 
     const addProject = () =>
         projectName &&
@@ -37,6 +45,7 @@ export const AddProject = ({shouldShow = false }) => {
                             onChange={e => setProjectName(e.target.value)}
                             className="add-project__name"
                             type="text"
+                            ref={projectInput}
                             placeholder="Name your project"
                         />
                         <button
@@ -58,7 +67,12 @@ export const AddProject = ({shouldShow = false }) => {
                 )}
                 { !show && (
                     <>
-                        <span className="add-project__plus"><FontAwesomeIcon icon={['fal', 'plus-square']} /></span>
+                        <span
+                            className="add-project__plus"
+                            onClick={() => setShow(!show)}
+                        >
+                            <FontAwesomeIcon icon={['fal', 'plus-square']} />
+                        </span>
                         <span
                             className="add-project__text"
                             data-testid="add-project__text"

@@ -33,8 +33,8 @@ export const generatedPushId = (() => {
 
         let id = timeStampChars.join('');
 
-        for (var i = 0; i < 12; i++) {
-            id += PUSH_CHARS.charAt(lastRandChars[i]);
+        for (var j = 0; j < 12; j++) {
+            id += PUSH_CHARS.charAt(lastRandChars[j]);
         }
 
         return id;

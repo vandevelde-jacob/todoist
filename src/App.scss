@@ -8,7 +8,7 @@ html {
 }
 
 *, *:before, *:after {
-    box-sizing: inherit;   
+    box-sizing: inherit;
 }
 
 body {
@@ -27,6 +27,62 @@ ul {
     margin: 0;
     padding: 0;
 }
+
+
+body {
+    input, button {
+        font-family: 'Rajdhani', sans-serif;
+    }
+
+    ::placeholder {
+        font-family: 'Rajdhani', sans-serif;
+    }
+
+    ::-webkit-input-placeholder {
+        font-family: 'Rajdhani', sans-serif;
+    }
+
+    :-ms-input-placeholder {
+        font-family: 'Rajdhani', sans-serif;
+    }
+
+    :-moz-placeholder {
+        font-family: 'Rajdhani', sans-serif;
+    }
+
+    ::-moz-placeholder {
+        font-family: 'Rajdhani', sans-serif;
+    }
+
+}
+
+
+.tasks {
+    input, button {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    ::placeholder {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    ::-webkit-input-placeholder {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    :-ms-input-placeholder {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    :-moz-placeholder {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    ::-moz-placeholder {
+        font-family: 'Montserrat', sans-serif;
+    }
+}
+
 
 /* Variables
 ================================================================== */
@@ -84,6 +140,7 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
     text-decoration: none !important;
     text-align: center;
     cursor: pointer;
+    text-transform: uppercase;
 }
 
 @mixin cancel() {
@@ -91,6 +148,7 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
     cursor: pointer;
     font-size: 14px;
     margin: 2px 5px;
+    text-transform: uppercase;
 }
 
 @mixin task-item() {
@@ -186,7 +244,7 @@ div {
                 text-align: center;
                 vertical-align: middle;
                 float: left;
-                
+
                 &:hover {
                     background-color: rgba(255, 255, 255, 0.20);
                     border-radius: 3px;
@@ -194,7 +252,7 @@ div {
 
                 &.settings__add {
                     margin-right: 15px;
-                } 
+                }
             }
         }
     }
@@ -424,7 +482,7 @@ div {
         border-bottom: 1px solid #F0F0F0;
 
         .checkbox-holder {
-            margin-right: 20px;
+            margin-right: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -447,13 +505,95 @@ div {
 /* Add Task
 ================================================================== */
 .add-task {
+    &__overlay {
+        background-color: rgba(102, 102, 102, 0.5);
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2000;
+        transition: opacity 0.2s ease-in;
+        height: calc(100vh);
 
+        .add-task__main {
+            overflow: visible;
+            margin-bottom: 20px;
+            margin-top: 50px;
+            border-radius: 5px;
+            background-color: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            padding: 20px 30px;
+            transform: translate(-50%, -50%);
+
+            .header {
+                font-size: 13px;
+                margin-bottom: 20px;
+                float: left;
+            }
+        }
+
+        .add-task__cancel-x {
+            cursor: pointer;
+            color: gray;
+            float: right;
+            font-weight: bold;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    }
+
+    &__main {
+        position: relative;
+    }
+
+    &__project, &__date {
+        cursor: pointer;
+        float: right;
+        color:gray;
+        margin: 20px 10px;
+    }
+
+    &__project {
+        margin-right: 0;
+    }
+
+    &__content {
+        width: 100%;
+        border: 1px solid #DDDDDD;
+        background-color: white !important;
+        border-radius: 3px;
+        height: 35px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    &__submit {
+        @include no-select();
+        @include btn("100px", green);
+    }
+
+    &__cancel {
+        @include no-select();
+        @include cancel();
+    }
+
+}
+
+.add-task__shallow, .add-project {
+    @include no-select();
+    cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .add-task__plus, .add-project__plus {
     color: green;
     font-size: 18px;
-    margin-right: 10px;;
+    padding-right: 10px;
+    cursor: pointer;
 }
 
 .add-task__text, .add-project__text {
@@ -461,6 +601,39 @@ div {
     color: #545454;
     font-size: 14px;
     text-transform: uppercase;
+    cursor: pointer;
+}
+
+/* Task date
+================================================================== */
+.task-date {
+    @include box-overlay();
+    background-color: #FFFFFF;
+    width: 200px;
+    right: 0;
+
+    &__list li {
+        @include task-item();
+
+        span:first-of-type {
+            margin-right: 10px;
+
+            svg {
+                fill: gray;
+            }
+        }
+    }
+}
+
+/* Project Overlay
+================================================================== */
+.project-overlay {
+    @include box-overlay();
+    background-color: white;
+
+    &__list li {
+        @include task-item();
+    }
 }
 
 /* Add Project
@@ -470,7 +643,6 @@ div {
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 20px;
-    cursor: pointer;
 
     &__input {
         margin-bottom: 20px;
