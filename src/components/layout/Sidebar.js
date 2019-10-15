@@ -49,7 +49,7 @@ export const Sidebar = () => {
             </ul>
 
             <div className="sidebar__middle" onClick={() => setShowProjects(!showProjects)}>
-                <span><FontAwesomeIcon icon={['fal', 'chevron-down']} rotation={!showProjects ? 270 : 0}/></span>
+                <span><FontAwesomeIcon icon={['fal', 'chevron-down']} rotation={!showProjects ? 270 : undefined}/></span>
                 <h2>Projects</h2>
             </div>
 

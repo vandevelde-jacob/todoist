@@ -66,9 +66,9 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
     user-select: none;
 }
 
-@mixin btn($width) {
+@mixin btn($width, $bg-color) {
     width: $width;
-    background-color: red;
+    background-color: $bg-color;
     color: #FFFFFF !important;
     border: 1px solid transparent;
     margin-right: 5px;
@@ -163,6 +163,7 @@ div {
         color: white;
         grid-area: 1/1;
         @include va(left);
+        padding-left: 10px;
 
         span {
             padding-left: 10px;
@@ -277,10 +278,6 @@ div {
         }
     }
 
-    &__projects {
-        padding-left: 3px;
-    }
-
     &__project {
         @include va('left');
     }
@@ -365,7 +362,7 @@ div {
         }
 
         button {
-            @include btn('50px');
+            @include btn("50px", red);
         }
 
         span {
@@ -444,5 +441,56 @@ div {
                 border-radius: 16px;
             }
         }
+    }
+}
+
+/* Add Task
+================================================================== */
+.add-task {
+
+}
+
+.add-task__plus, .add-project__plus {
+    color: green;
+    font-size: 18px;
+    margin-right: 10px;;
+}
+
+.add-task__text, .add-project__text {
+    display: inline-block;
+    color: #545454;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+/* Add Project
+================================================================== */
+.add-project {
+    @include va(left);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+
+    &__input {
+        margin-bottom: 20px;
+    }
+
+    &__name {
+        width: 100%;
+        border: 1px solid #DDDDDD;
+        background-color: white;
+        border-radius: 3px;
+        height: 35px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    &__submit {
+        @include btn("100px", green);
+    }
+
+    &__cancel {
+        @include cancel();
     }
 }
