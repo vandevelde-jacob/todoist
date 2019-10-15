@@ -8,8 +8,6 @@ export const Projects = ({ activeValue = null }) => {
     const { setSelectedProject } = useSelectedProjectValue();
     const { projects } = useProjectsValue();
 
-    console.log(projects);
-
     return (
         projects &&
         projects.map(project => (

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Checkbox } from './Checkbox';
+import { AddTask } from './AddTask';
 import { useTasks } from '../hooks';
 import { collatedTasks } from '../constants';
 import { getTitle, getCollatedTitle, collatedTasksExist } from '../helpers';
@@ -16,15 +17,11 @@ export const Tasks = () => {
 
     if (projects && selectedProject && !collatedTasksExist(selectedProject)) {
         projectName = getTitle(projects, selectedProject).name;
-        console.log('projectName 1: ', projectName);
     }
 
     if (collatedTasksExist(selectedProject) && selectedProject) {
         projectName = getCollatedTitle(collatedTasks, selectedProject).name;
-        console.log('projectName 2: ', projectName);
     }
-
-    console.log(tasks);
 
     useEffect(() => {
         document.title = `${projectName}: Todoist`;
@@ -42,6 +39,7 @@ export const Tasks = () => {
                     </li>
                 ))}
             </ul>
+            <AddTask />
         </div>
     )
 }
