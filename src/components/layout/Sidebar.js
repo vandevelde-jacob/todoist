@@ -9,6 +9,7 @@ export const Sidebar = () => {
     const { setSelectedProject } = useSelectedProjectValue();
     const [ active, setActive ] = useState('INBOX');
     const [ showProjects, setShowProjects ] = useState(true);
+    const [ sortAsc, setSortAsc ] = useState(true);
 
     return (
         <div className="sidebar" data-testid="sidebar">
@@ -53,7 +54,13 @@ export const Sidebar = () => {
                 <h2>Projects</h2>
             </div>
 
-            <ul className="sidebar__projects">{ showProjects && <Projects /> }</ul>
+            <div className="sidebar__functions">
+                <span title="Sort by name" onClick={() => setSortAsc(!sortAsc)}><FontAwesomeIcon icon={['fad', 'sort-down']} /></span>
+                <span title="Todo"><FontAwesomeIcon icon={['fal', 'sync']} /></span>
+                <span title="Todo"><FontAwesomeIcon icon={['fal', 'cog']} /></span>
+            </div>
+
+            <ul className="sidebar__projects">{ showProjects && <Projects sortAsc={sortAsc} /> }</ul>
             <AddProject />
         </div>
     )

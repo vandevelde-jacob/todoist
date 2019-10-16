@@ -40,3 +40,15 @@ export const generatedPushId = (() => {
         return id;
     }
 })();
+
+export const orderByProp = ( prop, sortAsc = true ) => {
+    return function(a, b) {
+        if ( a[prop] < b[prop] ){
+            return sortAsc ? -1 : 1;
+        }
+        if ( a[prop] > b[prop] ){
+            return sortAsc ? 1 : -1;
+        }
+        return 0;
+    }
+}

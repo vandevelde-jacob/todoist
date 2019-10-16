@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 
 import { useSelectedProjectValue, useProjectsValue } from '../context';
 import { IndividualProject } from './IndividualProject';
+import { orderByProp } from '../helpers';
 
-export const Projects = ({ activeValue = null }) => {
+export const Projects = ({ sortAsc, activeValue = null }) => {
     const [active, setActive] = useState(activeValue);
     const { setSelectedProject } = useSelectedProjectValue();
     const { projects } = useProjectsValue();
+
+    projects.sort( orderByProp('name', sortAsc) );
 
     return (
         projects &&

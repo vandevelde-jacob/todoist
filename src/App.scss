@@ -251,7 +251,7 @@ div {
                 }
 
                 &.settings__add {
-                    margin-right: 15px;
+                    margin-right: 10px;
                 }
             }
         }
@@ -277,7 +277,7 @@ div {
 
     li {
         padding-left: 10px;
-        padding-right: 15px;
+        padding-right: 10px;
 
         // NOTE A 1/2: To enable a hover show/hide use this
         // &:hover .sidebar__project-delete {
@@ -286,6 +286,7 @@ div {
     }
 
     &__project {
+        @include va('left');
         padding-top: 10px;
         padding-bottom: 10px;
         cursor: pointer;
@@ -336,10 +337,6 @@ div {
         }
     }
 
-    &__project {
-        @include va('left');
-    }
-
     &__dot {
         margin-right: 10px;
     }
@@ -365,6 +362,34 @@ div {
             padding-bottom: 20px;
         }
     }
+
+    &__functions {
+        display: flex;
+        font-size: 14px;
+        justify-content: center;
+
+        span {
+            padding: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+
+            &.active, &:hover {
+                font-weight: bold;
+                background-color: white;
+            }
+        }
+
+        span:first-of-type {
+            color: #00000A;
+            color: red;
+        }
+
+        span:last-of-type {
+            color: #00000A;
+            color: red;
+        }
+    }
+
 
     &__generic {
         li {
