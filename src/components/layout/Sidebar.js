@@ -11,6 +11,8 @@ export const Sidebar = () => {
     const [ showProjects, setShowProjects ] = useState(true);
     const [ sortAsc, setSortAsc ] = useState(true);
 
+    let arrowDirection = sortAsc ? 'down' : 'up';
+
     return (
         <div className="sidebar" data-testid="sidebar">
             <ul className="sidebar__generic">
@@ -55,7 +57,7 @@ export const Sidebar = () => {
             </div>
 
             <div className="sidebar__functions">
-                <span title="Sort by name" onClick={() => setSortAsc(!sortAsc)}><FontAwesomeIcon icon={['fad', 'sort-down']} /></span>
+                <span title="Sort by name" onClick={() => setSortAsc(!sortAsc)}><FontAwesomeIcon icon={['fad', `sort-${arrowDirection}`]} /></span>
                 <span title="Todo"><FontAwesomeIcon icon={['fal', 'sync']} /></span>
                 <span title="Todo"><FontAwesomeIcon icon={['fal', 'cog']} /></span>
             </div>

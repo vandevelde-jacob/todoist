@@ -367,6 +367,7 @@ div {
         display: flex;
         font-size: 14px;
         justify-content: center;
+        color: #00000A;
 
         span {
             padding: 10px;
@@ -377,16 +378,6 @@ div {
                 font-weight: bold;
                 background-color: white;
             }
-        }
-
-        span:first-of-type {
-            color: #00000A;
-            color: red;
-        }
-
-        span:last-of-type {
-            color: #00000A;
-            color: red;
         }
     }
 
