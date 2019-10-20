@@ -160,8 +160,47 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
     padding-bottom: 10px;
     font-size: 14px;
     border-bottom: 1px solid #F0F0F0;
-    scroll-padding-left: 10px;
+    padding-left: 10px;
     cursor: pointer;
+
+    &:hover {
+        background-color: #FAFAFA;
+        font-weight: bold;
+    }
+
+    .project-overlay__dot {
+        margin-right: 10px;;
+    }
+
+    &:nth-child(1) {
+        .project-overlay__dot {
+            color: #6ACCBC;
+        }
+    }
+
+    &:nth-child(2) {
+        .project-overlay__dot {
+            color: #FAD003;
+        }
+    }
+
+    &:nth-child(3) {
+        .project-overlay__dot {
+            color: #FF8D85;
+        }
+    }
+
+    &:nth-child(4) {
+        .project-overlay__dot {
+            color: #FF9932;
+        }
+    }
+
+    &:nth-child(5) {
+        .project-overlay__dot {
+            color: #AF38EB;
+        }
+    }
 }
 
 @mixin mq($from) {
@@ -170,15 +209,68 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
     }
 }
 
+@mixin darkmode{
+    color: #FAFAFA;
+    border-color: #333333;
+    background-color: #282828;
+}
+
 /* Darkmode
 ================================================================== */
 .darkmode {
     header {
         -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
-        background-color: #282828;
+        background-color: #6495ED;
         border-color: transparent;
     }
+
+    .sidebar {
+        @include darkmode();
+
+        &__generic li,
+        &__projects li,
+        &__middle,
+        &__middle span,
+        &__middle h2,
+        &__functions,
+        .add-project__text,
+        .add-project__cancel,
+        .project-delete-modal__inner,
+        .project-delete-modal__inner p,
+        .project-delete-modal__inner span
+        {
+            @include darkmode();
+        }
+
+        &__generic li, &__projects li, .sidebar__functions span {
+            &.active, &:hover {
+                background-color: #545454;
+            }
+        }
+    }
+
+    .tasks {
+        @include darkmode();
+
+        &__list li,
+        .add-task__text,
+        .add-task__cancel,
+        .add-task__project,
+        .add-task__date,
+        .task-date li,
+        .project-overlay li
+        {
+            @include darkmode();
+        }
+
+        .project-overlay li, .task-date li {
+            &.active, &:hover {
+                background-color: #545454;
+            }
+        }
+    }
+
 }
 
 /* Header
@@ -398,7 +490,6 @@ div {
                 svg {
                     width: 18px;
                     height: 18px;
-                    color: #555555;
                 }
             }
 

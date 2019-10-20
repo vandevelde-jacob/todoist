@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { firebase } from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import moment  from 'moment';
+import moment from 'moment';
 import { useSelectedProjectValue } from '../context';
+import { ProjectOverlay } from './ProjectOverlay';
+import { TaskDate } from './TaskDate';
 
 export const AddTask = ({
     showAddTask = true,
@@ -40,7 +42,7 @@ export const AddTask = ({
                 .format('DD/MM/YYYY');
         }
 
-        return(
+        return (
             task &&
             projectId &&
             firebase
@@ -98,6 +100,16 @@ export const AddTask = ({
                             </div>
                         </>
                     )}
+                    <ProjectOverlay
+                        setProject={setProject}
+                        showProjectOverlay={showProjectOverlay}
+                        setShowProjectOverlay={setShowProjectOverlay}
+                    />
+                    <TaskDate
+                        setTaskDate={setTaskDate}
+                        showTaskDate={showTaskDate}
+                        setShowTaskDate={setShowTaskDate}
+                    />
                     <input
                         className="add-task__content"
                         data-testid="add-task-content"
