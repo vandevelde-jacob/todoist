@@ -16,7 +16,12 @@ export const Header = ( {darkMode, setDarkMode} ) => {
                 </div>
                 <div className="settings">
                     <ul>
-                        <li data-testid="quick-add-task-action"><FontAwesomeIcon icon={['fal', 'plus-square']} size="2x" /></li>
+                        <li
+                            data-testid="quick-add-task-action"
+                            className="quick-add-task"
+                        >
+                            <FontAwesomeIcon icon={['fal', 'plus-square']} size="2x" />
+                        </li>
                         <li
                             data-testid="dark-mode-action"
                             className="settings__darkmode"

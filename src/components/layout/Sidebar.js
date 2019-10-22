@@ -9,6 +9,7 @@ export const Sidebar = () => {
     const { setSelectedProject } = useSelectedProjectValue();
     const [ active, setActive ] = useState('INBOX');
     const [ showProjects, setShowProjects ] = useState(true);
+    const [ showArchivedProjects, setShowArchivedProjects ] = useState(true);
     const [ sortAsc, setSortAsc ] = useState(true);
 
     let arrowDirection = sortAsc ? 'down' : 'up';
@@ -17,7 +18,7 @@ export const Sidebar = () => {
         <div className="sidebar" data-testid="sidebar">
             <ul className="sidebar__generic">
                 <li
-                    data-testid="index"
+                    data-testid="inbox"
                     className={active === 'inbox' ? 'active' : undefined}
                     onClick={() => {
                         setActive('inbox');
@@ -51,19 +52,36 @@ export const Sidebar = () => {
                 </li>
             </ul>
 
-            <div className="sidebar__middle" onClick={() => setShowProjects(!showProjects)}>
+            <div className="sidebar__projects-header" onClick={() => setShowProjects(!showProjects)}>
                 <span><FontAwesomeIcon icon={['fal', 'chevron-down']} rotation={!showProjects ? 270 : undefined}/></span>
                 <h2>Projects</h2>
             </div>
 
-            <div className="sidebar__functions">
-                <span title="Sort by name" onClick={() => setSortAsc(!sortAsc)}><FontAwesomeIcon icon={['fad', `sort-${arrowDirection}`]} /></span>
-                <span title="Todo"><FontAwesomeIcon icon={['fal', 'sync']} /></span>
-                <span title="Todo"><FontAwesomeIcon icon={['fal', 'cog']} /></span>
+            { showProjects && (
+                <div className="sidebar__functions">
+                    <span title="Sort by name" onClick={() => setSortAsc(!sortAsc)}><FontAwesomeIcon icon={['fad', `sort-${arrowDirection}`]} /></span>
+                    <span title="Todo"><FontAwesomeIcon icon={['fal', 'sync']} /></span>
+                    <span title="Todo"><FontAwesomeIcon icon={['fal', 'cog']} /></span>
+                </div>
+            )}
+
+            { showProjects && (
+                <ul className="sidebar__projects"><Projects isProjectArchived={false} sortAsc={sortAsc} /></ul>
+            )}
+
+            { showProjects && (
+                <AddProject />
+            )}
+
+            <div className="sidebar__archived-projects-header" onClick={() => setShowArchivedProjects(!showArchivedProjects)}>
+                <span><FontAwesomeIcon icon={['fal', 'chevron-down']} rotation={!showArchivedProjects ? undefined : 270}/></span>
+                <h2>Archived Projects</h2>
             </div>
 
-            <ul className="sidebar__projects">{ showProjects && <Projects sortAsc={sortAsc} /> }</ul>
-            <AddProject />
+            { !showArchivedProjects && (
+                <ul className="sidebar__archived-projects"><Projects isProjectArchived={true} sortAsc={sortAsc} /></ul>
+            )}
+
         </div>
     )
 }

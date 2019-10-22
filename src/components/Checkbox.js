@@ -1,7 +1,7 @@
 import React from 'react';
 import { firebase } from '../firebase';
 
-export const Checkbox = ({id}) => {
+export const Checkbox = ({ id, disabled }) => {
     const archiveTask = () => {
         firebase
         .firestore()
@@ -16,7 +16,13 @@ export const Checkbox = ({id}) => {
         <div
             className="checkbox-holder"
             data-testid="checkbox-action"
-            onClick={() => archiveTask()}
+            onClick={() => {
+                if (disabled) {
+                    return;
+                } else {
+                    archiveTask()}
+                }
+            }
         >
             <span className="checkbox" />
         </div>

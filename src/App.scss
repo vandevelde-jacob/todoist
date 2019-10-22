@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Rajdhani");
-@import url("https://fonts.googleapis.com/css?family=Montserrat");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300");
 
 /* General settings
 ================================================================== */
@@ -59,27 +59,27 @@ body {
 
 .tasks {
     input, button {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Roboto', sans-serif;
     }
 
     ::placeholder {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Roboto', sans-serif;
     }
 
     ::-webkit-input-placeholder {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Roboto', sans-serif;
     }
 
     :-ms-input-placeholder {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Roboto', sans-serif;
     }
 
     :-moz-placeholder {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Roboto', sans-serif;
     }
 
     ::-moz-placeholder {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Roboto', sans-serif;
     }
 }
 
@@ -215,9 +215,25 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
     background-color: #282828;
 }
 
+@mixin sidebar-heading {
+    span {
+        color: #00000A;
+        margin-right: 10px;
+    }
+
+    h2 {
+        margin: 0;
+        color: #333333;
+        font-size: 15px;
+        font-weight: bold;
+        padding-bottom: 20px;
+    }
+}
+
 /* Darkmode
 ================================================================== */
 .darkmode {
+    @include darkmode();
     header {
         -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
@@ -230,9 +246,12 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
 
         &__generic li,
         &__projects li,
-        &__middle,
-        &__middle span,
-        &__middle h2,
+        &__projects-header,
+        &__projects-header span,
+        &__projects-header h2,
+        &__archived-projects-header,
+        &__archived-projects-header span,
+        &__archived-projects-header h2,
         &__functions,
         .add-project__text,
         .add-project__cancel,
@@ -377,63 +396,66 @@ div {
         // }
     }
 
-    &__project {
-        @include va('left');
-        padding-top: 10px;
-        padding-bottom: 10px;
-        cursor: pointer;
+    &__projects {
+        .individual__project {
+            @include va('left');
+            padding-top: 10px;
+            padding-bottom: 10px;
+            cursor: pointer;
 
-        &-delete {
-            margin-left: auto;
-            // NOTE A 2/2: To enable a hover show/hide use this
-            // display: none;
+            &-delete {
+                margin-left: auto;
+                // NOTE A 2/2: To enable a hover show/hide use this
+                // display: none;
 
-            svg {
-                color: #CACACA;
+                svg {
+                    color: #CACACA;
+                }
+            }
+
+            &.active, &:hover {
+                font-weight: bold;
+                background-color: white;
+            }
+
+            &:nth-child(1) {
+                .individual__project-dot {
+                    color: #6ACCBC;
+                }
+            }
+
+            &:nth-child(2) {
+                .individual__project-dot {
+                    color: #FAD003;
+                }
+            }
+
+            &:nth-child(3) {
+                .individual__project-dot {
+                    color: #FF8D85;
+                }
+            }
+
+            &:nth-child(4) {
+                .individual__project-dot {
+                    color: #FF9932;
+                }
+            }
+
+            &:nth-child(5) {
+                .individual__project-dot {
+                    color: #AF38EB;
+                }
+            }
+
+            &-dot {
+                margin-right: 10px;
             }
         }
 
-        &.active, &:hover {
-            font-weight: bold;
-            background-color: white;
-        }
-
-        &:nth-child(1) {
-            .sidebar__dot {
-                color: #6ACCBC;
-            }
-        }
-
-        &:nth-child(2) {
-            .sidebar__dot {
-                color: #FAD003;
-            }
-        }
-
-        &:nth-child(3) {
-            .sidebar__dot {
-                color: #FF8D85;
-            }
-        }
-
-        &:nth-child(4) {
-            .sidebar__dot {
-                color: #FF9932;
-            }
-        }
-
-        &:nth-child(5) {
-            .sidebar__dot {
-                color: #AF38EB;
-            }
-        }
     }
 
-    &__dot {
-        margin-right: 10px;
-    }
-
-    &__middle {
+    &__projects-header {
         margin-top: 20px;
         margin-bottom: 20px;
         display: flex;
@@ -441,30 +463,23 @@ div {
         padding-left: 10px;
         cursor: pointer;
 
-        span {
-            color: #00000A;
-            margin-right: 10px;
-        }
-
-        h2 {
-            margin: 0;
-            color: #333333;
-            font-size: 15px;
-            font-weight: bold;
-            padding-bottom: 20px;
-        }
+        @include sidebar-heading();
     }
 
     &__functions {
         display: flex;
-        font-size: 14px;
-        justify-content: center;
+        flex-direction: row;
+        align-items: stretch;
+        font-size: 16px;
+        width: 100%;
         color: #00000A;
 
         span {
             padding: 10px;
             border-radius: 3px;
             cursor: pointer;
+            flex: 1;
+            text-align: center;
 
             &.active, &:hover {
                 font-weight: bold;
@@ -472,7 +487,6 @@ div {
             }
         }
     }
-
 
     &__generic {
         li {
@@ -498,8 +512,40 @@ div {
                 background-color: white;
             }
         }
-
     }
+
+    &__archived-projects-header {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        border-bottom: $generic-border;
+        padding-left: 10px;
+        cursor: pointer;
+
+        @include sidebar-heading();
+    }
+
+    &__archived-projects {
+        .individual__project {
+            @include va('left');
+            padding-top: 10px;
+            padding-bottom: 10px;
+            cursor: pointer;
+            &-dot {
+                display: none;
+            }
+            &-delete {
+                margin-left: auto;
+                // NOTE A 2/2: To enable a hover show/hide use this
+                // display: none;
+
+                svg {
+                    color: #CACACA;
+                }
+            }
+        }
+    }
+
 }
 
 /* Show Confirm Delete
@@ -551,7 +597,7 @@ div {
 /* Tasks
 ================================================================== */
 .tasks {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     width: 656px;
     background-color: white;
     margin-left: 266px;
@@ -566,6 +612,16 @@ div {
     @include mq($desktopSwitch) {
         margin-left: 0;
         width: auto;
+    }
+
+    &.archived {
+        opacity: 0.5;
+        cursor: not-allowed;
+        @include no-select();
+
+        * {
+            cursor: not-allowed !important;
+        }
     }
 
     h2 {
@@ -694,6 +750,7 @@ div {
     @include no-select();
     cursor: pointer;
     margin-bottom: 20px;
+    border-bottom: 10px;
 }
 
 .add-task__plus, .add-project__plus {

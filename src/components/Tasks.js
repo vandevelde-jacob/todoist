@@ -4,23 +4,27 @@ import { Checkbox } from './Checkbox';
 import { AddTask } from './AddTask';
 import { useTasks } from '../hooks';
 import { collatedTasks } from '../constants';
-import { getTitle, getCollatedTitle, collatedTasksExist } from '../helpers';
-import { useSelectedProjectValue, useProjectsValue } from '../context';
-
+import { getProject, getCollatedTasks, collatedTasksExist } from '../helpers';
+import { useSelectedProjectValue, useProjectsValue, useArchivedProjectsValue } from '../context';
 
 export const Tasks = () => {
     const { selectedProject } = useSelectedProjectValue();
     const { projects } = useProjectsValue();
+    const { archivedProjects } = useArchivedProjectsValue();
     const { tasks } = useTasks(selectedProject);
 
     let projectName = '';
+    let isArchived = null;
+    let allProjects = projects.concat(archivedProjects);
 
-    if (projects && selectedProject && !collatedTasksExist(selectedProject)) {
-        projectName = getTitle(projects, selectedProject).name;
+    if (allProjects && selectedProject && !collatedTasksExist(selectedProject)) {
+        projectName = getProject(allProjects, selectedProject).name;
+        isArchived = getProject(allProjects, selectedProject).archived;
     }
 
     if (collatedTasksExist(selectedProject) && selectedProject) {
-        projectName = getCollatedTitle(collatedTasks, selectedProject).name;
+        projectName = getCollatedTasks(collatedTasks, selectedProject).name;
+        isArchived = false;
     }
 
     useEffect(() => {
@@ -28,18 +32,22 @@ export const Tasks = () => {
     });
 
     return (
-        <div className="tasks" data-testid="tasks">
-            <h2 data-testid="project-name">{projectName}</h2>
+        <div className={isArchived ? "tasks archived" :  "tasks"} data-testid="tasks">
+            <h2 data-testid="project-name">
+            {projectName} {isArchived ? "- ARCHIVED (Read only)" : ""}
+            </h2>
 
             <ul className="tasks__list">
                 {tasks.map(task => (
                     <li key={`${task.id}`}>
-                        <Checkbox id={task.id} />
+                        <Checkbox id={task.id} disabled={isArchived} />
                         <span>{task.task}</span>
                     </li>
                 ))}
             </ul>
-            <AddTask />
+            { !isArchived && (
+                <AddTask />
+            )}
         </div>
     )
 }

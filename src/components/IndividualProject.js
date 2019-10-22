@@ -2,36 +2,62 @@ import React, { useState } from 'react';
 import { firebase } from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useProjectsValue, useSelectedProjectValue } from '../context';
+import { useProjectsValue, useArchivedProjectsValue, useSelectedProjectValue } from '../context';
 
-export const IndividualProject = ({project}) => {
+export const IndividualProject = ({project, isProjectArchived}) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const { projects, setProjects } = useProjectsValue();
+    const { archivedProjects, setArchivedProjects } = useArchivedProjectsValue();
     const { setSelectedProject } = useSelectedProjectValue();
 
-    const deleteProject = docId => {
+    const archiveProject = docId => {
         firebase.firestore()
         .collection('projects')
         .doc(docId)
-        .delete()
+        .update({
+            archived: true
+        })
         .then(() => {
             setProjects([...projects]);
+            setArchivedProjects([...archivedProjects]);
             setSelectedProject('INBOX');
         });
     };
 
+    const unarchiveProject = docId => {
+        firebase.firestore()
+        .collection('projects')
+        .doc(docId)
+        .update({
+            archived: false
+        })
+        .then(() => {
+            setProjects([...projects]);
+            setArchivedProjects([...archivedProjects]);
+            setSelectedProject('INBOX');
+        });
+    };
+
+    const actionIcon = isProjectArchived ? "trash-restore" : "trash";
+
     return (
         <>
-            <span className="sidebar__dot">
+            <span className="individual__project-dot">
                 <FontAwesomeIcon icon={['fas', 'circle']} />
             </span>
-            <span className="sidebar__project-name">{project.name}</span>
+            <span className="individual__project-name">{project.name}</span>
             <span
-                className="sidebar__project-delete"
+                className="individual__project-delete"
                 data-testid="delete-project"
-                onClick={() => setShowConfirm(!showConfirm)}
+                onClick={() => {
+                    if (isProjectArchived) {
+                        unarchiveProject(project.docId);
+                    } else {
+                        setShowConfirm(!showConfirm);
+                    }
+                }}
             >
-                <FontAwesomeIcon icon={['fas', 'trash']} />
+                <FontAwesomeIcon icon={['fas', `${actionIcon}`]} />
             </span>
             {showConfirm && (
                 <div className="project-delete-modal">
@@ -39,7 +65,7 @@ export const IndividualProject = ({project}) => {
                         <p>Are you sure you want to delete this project?</p>
                         <button
                             type="button"
-                            onClick={()=> deleteProject(project.docId)}
+                            onClick={() => archiveProject(project.docId)}
                         >
                             Delete
                         </button>

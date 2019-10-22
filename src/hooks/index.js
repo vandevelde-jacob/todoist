@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { firebase } from '../firebase';
 import moment from 'moment';
 
-import { collatedTasksExist } from '../helpers';
+import { collatedTasksExist, orderByProp } from '../helpers';
 
 export const useTasks = selectedProject => {
     const [tasks, setTasks] = useState([]);
     const [archivedTasks, setArchivedTasks] = useState([]);
-    
+
     useEffect(() => {
         let unsubscribe = firebase
         .firestore()
@@ -54,6 +54,7 @@ export const useProjects = () => {
         .firestore()
         .collection('projects')
         .where('userId', '==', 'B89U51sSozf1bmxltuAe')
+        .where('archived', '==', false)
         .orderBy('projectId')
         .get()
         .then(snapshot => {
@@ -62,6 +63,8 @@ export const useProjects = () => {
                 docId: project.id
             }));
 
+            projects.sort(orderByProp('projectId', true));
+
             if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
                 setProjects(allProjects);
             }
@@ -69,4 +72,32 @@ export const useProjects = () => {
     }, [projects]);
 
     return { projects, setProjects };
+}
+
+export const useArchivedProjects = () => {
+    const [archivedProjects, setArchivedProjects] = useState([]);
+
+    useEffect(() => {
+        firebase
+        .firestore()
+        .collection('projects')
+        .where('userId', '==', 'B89U51sSozf1bmxltuAe')
+        .where('archived', '==', true)
+        .orderBy('projectId')
+        .get()
+        .then(snapshot => {
+            const allArchivedProjects = snapshot.docs.map(project => ({
+                ...project.data(),
+                docId: project.id
+            }));
+
+            archivedProjects.sort(orderByProp('projectId', true));
+
+            if (JSON.stringify(allArchivedProjects) !== JSON.stringify(archivedProjects)) {
+                setArchivedProjects(allArchivedProjects);
+            }
+        });
+    }, [archivedProjects]);
+
+    return { archivedProjects, setArchivedProjects };
 }
