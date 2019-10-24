@@ -57,7 +57,7 @@ body {
 }
 
 
-.tasks {
+.tasks, .add-task__overlay {
     input, button {
         font-family: 'Roboto', sans-serif;
     }
@@ -98,7 +98,6 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
     position: absolute;
     width: 100%;
     z-index: 1;
-    top: 85px;
     border-radius: 3px;
 }
 
@@ -230,6 +229,42 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
     }
 }
 
+@mixin task-date-overlay($top-offset) {
+    .task-date-overlay {
+        @include box-overlay();
+        background-color: #FFFFFF;
+        top: $top-offset;
+        width: 200px;
+        right: 0;
+
+        &__list li {
+            @include task-item();
+
+            span:first-of-type {
+                margin-right: 10px;
+
+                svg {
+                    fill: gray;
+                }
+            }
+        }
+    }
+}
+
+@mixin project-overlay($top-offset) {
+    .project-overlay {
+        @include box-overlay();
+        background-color: white;
+        width: 200px;
+        top: $top-offset;
+        right: 0;
+
+        &__list li {
+            @include task-item();
+        }
+    }
+}
+
 /* Darkmode
 ================================================================== */
 .darkmode {
@@ -269,7 +304,7 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
         }
     }
 
-    .tasks {
+    .tasks, .add-task__overlay {
         @include darkmode();
 
         &__list li,
@@ -277,13 +312,14 @@ $desktopSwitch: '200px'; // Change this to update what width the side changes la
         .add-task__cancel,
         .add-task__project,
         .add-task__date,
-        .task-date li,
-        .project-overlay li
+        .task-date-overlay li,
+        .project-overlay li,
+        .add-task__main
         {
             @include darkmode();
         }
 
-        .project-overlay li, .task-date li {
+        .project-overlay li, .task-date-overlay li {
             &.active, &:hover {
                 background-color: #545454;
             }
@@ -596,7 +632,7 @@ div {
 
 /* Tasks
 ================================================================== */
-.tasks {
+.tasks, .add-task__overlay {
     font-family: 'Roboto', sans-serif;
     width: 656px;
     background-color: white;
@@ -668,8 +704,13 @@ div {
 /* Add Task
 ================================================================== */
 .add-task {
+    @include task-date-overlay(85px);
+    @include project-overlay(85px);
+
     &__overlay {
-        background-color: rgba(102, 102, 102, 0.5);
+        @include task-date-overlay(135px);
+        @include project-overlay(135px);
+        background: rgba(102, 102, 102, 0.5) !important;
         position: absolute;
         margin: auto;
         top: 0;
@@ -697,15 +738,6 @@ div {
                 margin-bottom: 20px;
                 float: left;
             }
-        }
-
-        .add-task__cancel-x {
-            cursor: pointer;
-            color: gray;
-            float: right;
-            font-weight: bold;
-            font-size: 12px;
-            margin-top: 10px;
         }
     }
 
@@ -766,38 +798,6 @@ div {
     font-size: 14px;
     text-transform: uppercase;
     cursor: pointer;
-}
-
-/* Task date
-================================================================== */
-.task-date {
-    @include box-overlay();
-    background-color: #FFFFFF;
-    width: 200px;
-    right: 0;
-
-    &__list li {
-        @include task-item();
-
-        span:first-of-type {
-            margin-right: 10px;
-
-            svg {
-                fill: gray;
-            }
-        }
-    }
-}
-
-/* Project Overlay
-================================================================== */
-.project-overlay {
-    @include box-overlay();
-    background-color: white;
-
-    &__list li {
-        @include task-item();
-    }
 }
 
 /* Add Project

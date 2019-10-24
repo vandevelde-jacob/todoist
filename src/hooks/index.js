@@ -32,7 +32,7 @@ export const useTasks = selectedProject => {
                 selectedProject === 'NEXT_7'
                 ? newTasks.filter(
                     task => moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7
-                    && tasks.archived !==true
+                    && task.archived !==true
                 )
                 : newTasks.filter(task => task.archived !== true)
             );

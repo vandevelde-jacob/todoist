@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export const TaskDate = ({setTaskDate, showTaskDate, setShowTaskDate}) => {
     return (
         showTaskDate && (
-            <div className="task-date" data-testid="task-date__list">
-                <ul className="task-date__list">
+            <div className="task-date-overlay" data-testid="task-date-overlay__list">
+                <ul className="task-date-overlay__list">
                     <li
-                        data-testid="task-date-today"
+                        data-testid="task-date-overlay-today"
                         onClick={() => {
                             setShowTaskDate(false);
                             setTaskDate(moment().format('DD/MM/YYYY'))
@@ -21,7 +21,7 @@ export const TaskDate = ({setTaskDate, showTaskDate, setShowTaskDate}) => {
                         <span>Today</span>
                     </li>
                     <li
-                        data-testid="task-date-tomorrow"
+                        data-testid="task-date-overlay-tomorrow"
                         onClick={() => {
                             setShowTaskDate(false);
                             setTaskDate(moment()
@@ -35,7 +35,7 @@ export const TaskDate = ({setTaskDate, showTaskDate, setShowTaskDate}) => {
                         <span>Tomorrow</span>
                     </li>
                     <li
-                        data-testid="task-date-next-week"
+                        data-testid="task-date-overlay-next-week"
                         onClick={() => {
                             setShowTaskDate(false);
                             setTaskDate(moment()

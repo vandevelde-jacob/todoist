@@ -3,7 +3,7 @@ import { firebase } from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { generatedPushId } from '../helpers';
-import { useProjectsValue, useSelectedProjectValue } from '../context';
+import { useProjectsValue } from '../context';
 
 export const AddProject = ({shouldShow = false }) => {
     const [show, setShow] = useState(shouldShow);
