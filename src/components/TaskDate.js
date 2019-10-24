@@ -16,7 +16,7 @@ export const TaskDate = ({setTaskDate, showTaskDate, setShowTaskDate}) => {
                         }}
                     >
                         <span>
-                            <FontAwesomeIcon icon={['fal', 'space-shuttle']} />
+                            <FontAwesomeIcon icon={['far', 'calendar']} />
                         </span>
                         <span>Today</span>
                     </li>
@@ -30,7 +30,7 @@ export const TaskDate = ({setTaskDate, showTaskDate, setShowTaskDate}) => {
                         }}
                     >
                         <span>
-                            <FontAwesomeIcon icon={['fal', 'sun']} />
+                            <FontAwesomeIcon icon={['far', 'calendar-plus']} />
                         </span>
                         <span>Tomorrow</span>
                     </li>
@@ -44,7 +44,7 @@ export const TaskDate = ({setTaskDate, showTaskDate, setShowTaskDate}) => {
                         }}
                     >
                         <span>
-                            <FontAwesomeIcon icon={['fal', 'paper-plane']} />
+                            <FontAwesomeIcon icon={['fas', 'paper-plane']} />
                         </span>
                         <span>Next week</span>
                     </li>

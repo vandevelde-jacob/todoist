@@ -71,7 +71,7 @@ export const AddProject = ({shouldShow = false }) => {
                             className="add-project__plus"
                             onClick={() => setShow(!show)}
                         >
-                            <FontAwesomeIcon icon={['fal', 'plus-square']} />
+                            <FontAwesomeIcon icon={['fas', 'plus']} />
                         </span>
                         <span
                             className="add-project__text"

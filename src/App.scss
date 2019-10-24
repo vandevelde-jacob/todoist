@@ -780,6 +780,7 @@ div {
 
 .add-task__shallow, .add-project {
     @include no-select();
+    @include va(left);
     cursor: pointer;
     margin-bottom: 20px;
     border-bottom: 10px;
@@ -803,7 +804,6 @@ div {
 /* Add Project
 ================================================================== */
 .add-project {
-    @include va(left);
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 20px;

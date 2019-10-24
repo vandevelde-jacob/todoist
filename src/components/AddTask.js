@@ -75,7 +75,7 @@ export const AddTask = ({
                     data-testid="show-main-action"
                     onClick={() => setShowMain(!showMain)}
                 >
-                    <span className="add-task__plus"><FontAwesomeIcon icon={['fal', 'plus-square']} /></span>
+                    <span className="add-task__plus"><FontAwesomeIcon icon={['fas', 'plus']} /></span>
                     <span className="add-task__text">Add Task</span>
                 </div>
             )}
@@ -139,14 +139,14 @@ export const AddTask = ({
                         data-testid="show-project-overlay"
                         onClick={() => setShowProjectOverlay(!showProjectOverlay)}
                     >
-                        <FontAwesomeIcon icon={['fal', 'list-alt']} />
+                        <FontAwesomeIcon icon={['far', 'list-alt']} />
                     </span>
                     <span
                         className="add-task__date"
                         data-testid="show-date-overlay"
                         onClick={() => setShowTaskDate(!showTaskDate)}
                     >
-                        <FontAwesomeIcon icon={['fal', 'calendar-alt']}  />
+                        <FontAwesomeIcon icon={['far', 'calendar-alt']}  />
                     </span>
                 </div>
             )}

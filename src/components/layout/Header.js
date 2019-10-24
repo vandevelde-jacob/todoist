@@ -7,13 +7,13 @@ export const Header = ( {darkMode, setDarkMode} ) => {
     const [shouldShowMain, setShouldShowMain] = useState(false);
     const [showQuickAddTask, setShowQuickAddTask] = useState(false);
 
-    let lightbulbType = darkMode ? 'lightbulb' : 'lightbulb-slash';
+    let lightbulbType = darkMode ? 'far' : 'fas';
 
     return (
         <header className="header" data-testid="header">
             <nav>
                 <div className="logo">
-                    <FontAwesomeIcon icon={['fal', 'clipboard-check']} size="2x" />
+                    <FontAwesomeIcon icon={['fas', 'list-ul']} size="2x" />
                     <span>Todoist</span>
                 </div>
                 <div className="settings">
@@ -26,14 +26,14 @@ export const Header = ( {darkMode, setDarkMode} ) => {
                                 setShouldShowMain(true);
                             }}
                         >
-                            <FontAwesomeIcon icon={['fal', 'plus-square']} size="2x" />
+                            <FontAwesomeIcon icon={['far', 'plus-square']} size="2x" />
                         </li>
                         <li
                             data-testid="dark-mode-action"
                             className="settings__darkmode"
                             onClick={() => setDarkMode(!darkMode)}
                         >
-                            <FontAwesomeIcon icon={['fal', `${lightbulbType}`]} size="2x" />
+                            <FontAwesomeIcon icon={[`${lightbulbType}`, 'lightbulb']} size="2x" />
                         </li>
                     </ul>
                 </div>
